@@ -1,0 +1,99 @@
+---
+title: "Taller 25.03.25"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+barrios = read_csv("dataset barrios.csv")
+```
+
+
+```{r}
+glimpse(barrios)
+
+```
+
+```{r}
+barrios$cluster=as_factor(barrios$cluster)
+ggplot (data=barrios, aes(x=INGRESO, y=EDUCACION))+ geom_point()
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+ggplot (data=barrios,aes(x=INGRESO,y=EDUCACION,color=cluster,size=DESEMPLEO))+geom_point()+theme_bw()
+```
+
+```{r}
+ggplot(data=barrios, aes(x=INGRESO,y=EDUCACION,color=cluster))
+```
+
+```{r}
+
+```
+
+```{r}
+size=DESEMPLEO))+ geom_point() +theme_bw()
+```
+
+```{r}
+ggplot(barrios)+ geom_histogram(aes(x=INGRESO),fill='skyblue',color='blue')+
+```
+
+```{r}
+ summarise(barrios, ingreso_prom=mean(INGRESO))
+
+```
+
+```{summarise(barrios, ingreso_mediana=median(INGRESO,na.rm=T))}
+
+```
+
+```{r}
+summarise(barrios, ingreso_mediana=median(INGRESO,na.rm =TRUE))
+
+```
+
+```{r}
+summarise(barrios, ingreso_prom=mean(INGRESO),ingreso_mediana=median(INGRESO))
+
+```
+
+```{r}
+barrios_agrupados<- group_by(barrios, cluster)
+```
+
+```{barrios_agrupados}
+```
+
+```{r}
+
+```
+
+```{summarise(barrios_agrupados,ingreso_prom=mean(INGRESO),}
+ingreso_mediana=median(INGRESO))
+
+```
+
+```{r}
+barrios |> group_by(cluster) |> summarise(ingreso_prom=mean(INGRESO),ingreso_mediana=median(INGRESO))
+
+```
+
+```{r}
+barrios |>
+ summarise(ingreso_var=var(INGRESO),
+ ingreso_desvio=sd(INGRESO))
+```
+
+```{r}
+barrios |> summarise(ingreso_var=var(INGRESO),ingreso_desvio=sd(INGRESO))
+```
