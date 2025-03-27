@@ -1,0 +1,31 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+```{r}
+library(readxl)
+df=readxl::read_xlsx("dataset actividad I.xlsx")
+glimpse(df)
+```
+
+```{r}
+df <- df|> mutate(frupo=as_factor(grupo))
+glimpse(df)
+```
+
+```{r}
+library(dplyr)
+summarise(df,var_1_media=mean(var_1),var_1_mediana=median(var_1),var_1_sd=sd(var_1))
+summarise(df,var_2_media=mean(var_2),var_2_mediana=median(var_2),var_1_sd=sd(var_2))
+```
+
+```{r}
+cor=cov(df$var_1,df$var_2)/(sd(df$var_1)*sd(df$var_2))
+cor
+```
+
+```{r}
+ggplot (data=df, aes(x=var_1, y=var_2))+ geom_point()
+```
