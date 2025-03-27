@@ -1,0 +1,112 @@
+---
+title: "Perros"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+dogs <- read_csv("https://data.cambridgema.gov/api/views/sckh-3xyx/rows.csv")
+# Manipulación útil a la que vamos a volver más adelante
+dogs_top5 <- dogs |>mutate(Breed = case_when(Dog_Breed == "Mixed Breed" ~ "Mixed",Dog_Breed != "Mixed Breed" ~ "Single")) |>
+filter(Dog_Name %in% c("Luna", "Charlie", "Lucy", "Cooper", "Rosie" ))
+```
+
+```{r}
+count(dogs_top5, Dog_Name)
+```
+
+```{r}
+ggplot(data = dogs_top5,mapping = aes(x = Dog_Name)) + geom_bar()
+
+```
+
+```{r}
+ggplot( dogs_top5, aes(x = Dog_Name)) + geom_bar()
+```
+
+```{r}
+dogs_top5|>ggplot()+geom_bar(aes(x=Dog_Name))
+```
+
+```{r}
+count(dogs_top5, Dog_Name)
+```
+
+```{r}
+count(dogs_top5, Dog_Name, sort = TRUE)
+```
+
+```{r}
+dog_counts <- count(dogs_top5, Dog_Name)
+dog_counts
+
+```
+
+```{r}
+ggplot(data = dog_counts,mapping = aes(x = Dog_Name,y = n)) + geom_col()
+
+```
+
+```{r}
+dog_counts <- count(dogs_top5, Dog_Name)
+dog_counts
+
+```
+
+```{r}
+ggplot(data = dog_counts,mapping = aes(x = Dog_Name,y = n)) +geom_col()
+
+```
+
+```{r}
+dog_counts <- count(dogs_top5, Dog_Name)
+dog_counts
+```
+
+```{r}
+ggplot(data = dog_counts,
+mapping = aes(x = fct_reorder(Dog_Name, n),y = n)) + geom_col()
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed)
+
+```
+
+```{r}
+ggplot(data = dogs_top5,mapping = aes(x = Dog_Name, fill = Breed)) + geom_bar(position = "dodge")
+
+```
+
+```{r}
+ggplot(data = dogs_top5,mapping = aes(x = Dog_Name, fill = Breed)) +geom_bar(position = "fill")
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed)|>spread(Breed,n)
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed)
+
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed) |> group_by(Dog_Name) |> mutate(prop = n/sum(n))
+
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed) |> group_by(Breed) |> mutate(prop = n/sum(n))
+
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed) |> group_by(Dog_Name) |> mutate(prop = n/sum(n))|>arrange(Breed)
+
+```
+
+```{r}
+count(dogs_top5, Dog_Name, Breed) |> group_by(Dog_Name) |> mutate(prop = n/sum(n))|>arrange(Breed,-prop)
+```
